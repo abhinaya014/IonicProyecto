@@ -3,15 +3,7 @@
     <ion-menu contentId="main-content" type="overlay">
       <ion-content>
         <ion-list id="inbox-list">
-          <ion-item>
-            <ion-avatar slot="start">
-              <img src="assets/img/avatar.svg" alt="avatar">
-            </ion-avatar>
-            <ion-label>
-              <h2>Usuario</h2>
-  
-              </ion-label>
-          </ion-item>
+          <ion-list-header>Menu</ion-list-header>
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
             <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
               <ion-icon aria-hidden="true" slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
