@@ -6,7 +6,7 @@
 
 <ion-content [fullscreen]="true" class="ion-padding">
   <ion-list>
-    <ion-item *ngFor="let curso of cursos">
+    <ion-item >
       <ion-card class="curso-card">
         <ion-card-header>
           <ion-card-title>DAM1</ion-card-title>
@@ -14,7 +14,7 @@
         </ion-card-header>
         <ion-card-content>
           <p>Curso de Almi</p>
-          <ion-button expand="full" class="curso-button" (click)="verDetalles(curso.id)">Ver Detalles</ion-button>
+          <ion-button expand="full" class="curso-button" >Ver Detalles</ion-button>
         </ion-card-content>
       </ion-card>
     </ion-item>
