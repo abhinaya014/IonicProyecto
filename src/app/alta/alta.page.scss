@@ -1,0 +1,16 @@
+ion-content {
+    --background: #f8f9fa; /* Fondo claro para todo el contenido */
+  }
+  
+  ion-item {
+    margin-bottom: 16px; /* Espacio entre los elementos del formulario */
+  }
+  
+  .submit-button {
+    background-color: #3880ff; /* Color azul para el botón */
+    color: white; /* Texto blanco para el botón */
+    font-weight: bold; /* Negrita */
+    border-radius: 8px; /* Esquinas redondeadas */
+    margin-top: 20px; /* Espacio arriba del botón */
+  }
+  

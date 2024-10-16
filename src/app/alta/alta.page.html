@@ -4,6 +4,18 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" class="ion-padding">
+  <form >
+    <ion-item>
+      <ion-label position="floating">Nombre de Usuario</ion-label>
+      <ion-input type="text" name="nombreUsuario"></ion-input>
+    </ion-item>
 
+    <ion-item>
+      <ion-label position="floating">Nombre del Curso</ion-label>
+      <ion-input type="text"  name="nombreCurso"></ion-input>
+    </ion-item>
+
+    <ion-button expand="full" type="submit" class="submit-button" [disabled]="!formulario.valid">Enviar</ion-button>
+  </form>
 </ion-content>
