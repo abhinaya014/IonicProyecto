@@ -1,14 +1,35 @@
-ion-card {
-    margin-bottom: 16px; 
-  }
-  
-  ion-card-title {
-    font-size: 1.2em; 
-    font-weight: bold; 
-  }
-  
-  ion-card-subtitle {
-    font-size: 0.9em; 
-    color: gray;
-  }
-  
+.bg-light {
+  background-color: #f8f9fa; /* Color de fondo claro */
+}
+
+.curso-card {
+  margin: 10px;
+  border-radius: 10px; /* Bordes redondeados */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  transition: transform 0.2s; /* Animación suave al hover */
+}
+
+.curso-card:hover {
+  transform: translateY(-5px); /* Efecto de elevación */
+}
+
+.card-title {
+  font-weight: bold;
+  font-size: 1.5rem; /* Título más grande */
+  color: #007bff; /* Color azul */
+}
+
+.card-subtitle {
+  font-size: 1rem;
+  color: #6c757d; /* Color gris */
+}
+
+.course-description {
+  color: #343a40; /* Color del texto */
+  font-size: 0.9rem;
+  margin: 10px 0;
+}
+
+.btn-details {
+  margin-top: 10px; /* Espaciado superior */
+}
