@@ -13,15 +13,13 @@ export class LoginPage implements OnInit {
   password: string = '';
 
   constructor(private authService: AuthService, private router: Router) { }
-
   login() {
     this.authService.login(this.email, this.password).subscribe(
       (response: { success: boolean; token: string; role: string; }) => {
         if (response.success) {
-          // Almacenar el token y rol en LocalStorage
           localStorage.setItem('token', response.token);
           localStorage.setItem('role', response.role);
-
+  
           // Redirigir según el rol
           if (response.role === 'administrador') {
             this.router.navigate(['/alta']);
@@ -38,7 +36,7 @@ export class LoginPage implements OnInit {
       }
     );
   }
-
+  
   ngOnInit() {
   }
 }

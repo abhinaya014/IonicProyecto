@@ -10,6 +10,7 @@ export class AuthService {
 
 
   constructor(public http: HttpClient) {}
+  
 
   // Método para obtener un usuario por email
   getUserByEmail(email: string): Observable<any> {
