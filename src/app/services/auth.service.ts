@@ -7,6 +7,8 @@ import { Observable } from 'rxjs';
 })
 export class AuthService {
   private apiUrl = 'http://34.226.133.9:8000/api/user'; 
+  private cursosUrl = 'http://34.226.133.9:8000/api/curso'; 
+
 
 
   constructor(private http: HttpClient) {}
@@ -28,5 +30,9 @@ export class AuthService {
   // Método para actualizar el usuario
   updateUser(userData: any): Observable<any> {
     return this.http.put(this.apiUrl, userData);
+  }
+
+  getCursos(): Observable<any> {
+    return this.http.get(this.cursosUrl);
   }
 }
