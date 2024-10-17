@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'https://34.226.133.9:8000/api/user'; // Cambia a HTTPS
+  private apiUrl = 'http://34.226.133.9:8000/api/user'; // Cambia a HTTPS
 
 
   constructor(private http: HttpClient) {}
