@@ -6,10 +6,10 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-  public apiUrl = 'http://34.226.133.9:8000/api/user';
+  private apiUrl = 'https://34.226.133.9:8000/api/user'; // Cambia a HTTPS
 
 
-  constructor(public http: HttpClient) {}
+  constructor(private http: HttpClient) {}
   
 
   // Método para obtener un usuario por email
