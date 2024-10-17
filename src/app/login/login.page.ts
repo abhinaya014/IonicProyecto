@@ -1,42 +1,35 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../services/auth.service';
-import {Router} from '@angular/router';
+import { Component } from '@angular/core';
+import { AuthService } from './auth.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
+export class LoginPage {
+  email: string | undefined;
+  password: string | undefined;
 
-export class LoginPage implements OnInit {
-  
-  email: string = '';
-  password: string = '';
+  constructor(private authService: AuthService) {}
 
-  constructor(private authService: AuthService, private router: Router) { }
-
-  login() {
-    this.authService.login(this.email, this.password).subscribe((response: { sucess: any; token: string; role: string; }) => {
-      if(response.sucess) {
-        
-        localStorage.setItem('token', response.token);
-        localStorage.setItem('role', response.role);
-
-        if(response.role == 'administrador') {
-          this.router.navigate(['/alta']);
-        } else if (response.role == 'alumno') { 
-          this.router.navigate(['/inicio']);
-          
-        } else {
-          console.log('Credenciales incorrectas');
-        }
-
-        
+  // Método para manejar el login
+  handleLogin() {
+    this.authService.getUserByEmail(this.email).subscribe((user: { password: string | undefined; id: any; }) => {
+      if (user && user.password === this.password) { // Asegúrate de que estás comparando las contraseñas correctamente
+        const userData = {
+          id: user.id,
+          email: this.email,
+          // Otros campos que quieras actualizar
+        };
+        this.authService.updateUser(userData).subscribe((response: any) => {
+          console.log('User updated:', response);
+          // Aquí puedes almacenar el token o información en LocalStorage
+        });
+      } else {
+        console.error('Invalid email or password');
       }
-    })
+    }, (error: any) => {
+      console.error('Error fetching user:', error);
+    });
   }
-
-  ngOnInit() {
-  }
-
 }
