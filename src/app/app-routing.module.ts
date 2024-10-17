@@ -12,8 +12,10 @@ const routes: Routes = [
     path: 'alta',
     loadChildren: () => import('./alta/alta.module').then( m => m.AltaPageModule)
   },
-  { path: 'login', loadChildren: () => import('./login/login.module').then(m => m.LoginPageModule) },
-
+  {
+    path: 'login',
+    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
+  }
 ];
 
 @NgModule({
