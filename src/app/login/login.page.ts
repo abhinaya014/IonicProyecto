@@ -20,14 +20,14 @@ export class LoginPage {
       password: this.password
     };
 
-    this.http.put('http://34.226.133.9:8000/api/user', userData).subscribe(
+    this.http.post('http://34.226.133.9:8000/api/user', userData).subscribe(
       (response: any) => {
         // Almacenar la respuesta en LocalStorage o SessionStorage
         if (response && response.rol) {
           if (response.rol === 'admin') {
             // Almacenar token/datos y redirigir a la pantalla de administrador
             localStorage.setItem('token', response.token);
-            localStorage.setItem('rol', 'admin');
+            localStorage.setItem('rol', 'administrador');
             this.router.navigate(['/admin-dashboard']);
           } else if (response.rol === 'alumno') {
             // Almacenar token/datos y redirigir a la pantalla de alumno
@@ -41,5 +41,6 @@ export class LoginPage {
         console.error('Error en el login', error);
       }
     );
-  }
+}
+
 }
