@@ -16,10 +16,6 @@ export class AuthService {
   constructor(private http: HttpClient) {}
   
 
-  // Método para obtener un usuario por email
-  getUserByEmail(email: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}?email=${email}`);
-  }
 
 
 
