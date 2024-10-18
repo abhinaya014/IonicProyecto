@@ -7,7 +7,7 @@ import {map} from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://34.226.133.9:8000/api/login'; 
+  private apiUrl = 'http://34.226.133.9:8000/api/user'; 
   private cursosUrl = 'http://34.226.133.9:8000/api/curso'; 
 
   private user: any;
