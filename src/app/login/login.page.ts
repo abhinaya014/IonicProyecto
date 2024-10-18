@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -7,40 +7,24 @@ import { Router } from '@angular/router';
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
-export class LoginPage {
-
+export class LoginPage implements OnInit {
+  
   email: string = '';
   password: string = '';
 
-  constructor(private http: HttpClient, private router: Router) {}
-
+  constructor(private authService: AuthService, private router: Router) { }
   login() {
-    const userData = {
-      email: this.email,
-      password: this.password
-    };
-
-    this.http.post('http://34.226.133.9:8000/api/user', userData).subscribe(
-      (response: any) => {
-        // Almacenar la respuesta en LocalStorage o SessionStorage
-        if (response && response.rol) {
-          if (response.rol === 'admin') {
-            // Almacenar token/datos y redirigir a la pantalla de administrador
-            localStorage.setItem('token', response.token);
-            localStorage.setItem('rol', 'administrador');
-            this.router.navigate(['/admin-dashboard']);
-          } else if (response.rol === 'alumno') {
-            // Almacenar token/datos y redirigir a la pantalla de alumno
-            localStorage.setItem('token', response.token);
-            localStorage.setItem('rol', 'alumno');
-            this.router.navigate(['/alumno-dashboard']);
-          }
-        }
-      },
-      (      error: any) => {
-        console.error('Error en el login', error);
+    this.authService.login(this.email, this.password).subscribe((user) => {
+      if (user.rol === 'admin') {
+        this.router.navigate(['/admin']);
+      } else if (user.rol === 'alumno') {
+        this.router.navigate(['/alumno']);
       }
-    );
-}
-
+    }, (error: any) => {
+      // Maneja el error de autenticación
+      console.log('Login error:', error);
+    });
+  }
+  ngOnInit() {
+  }
 }
