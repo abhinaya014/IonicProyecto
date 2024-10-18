@@ -14,29 +14,17 @@ export class LoginPage implements OnInit {
 
   constructor(private authService: AuthService, private router: Router) { }
   login() {
-    this.authService.login(this.email, this.password).subscribe(
-      (response: { success: boolean; token: string; role: string; }) => {
-        if (response.success) {
-          localStorage.setItem('token', response.token);
-          localStorage.setItem('role', response.role);
-  
-          // Redirigir según el rol
-          if (response.role === 'administrador') {
-            this.router.navigate(['/alta']);
-          } else if (response.role === 'alumno') { 
-            this.router.navigate(['/inicio']);
-          }
-        } else {
-          console.log('Credenciales incorrectas');
-        }
-      },
-      (      error: any) => {
-        console.error('Error en la solicitud de login:', error);
-        console.log('Credenciales incorrectas');
+    this.authService.login(this.email, this.password).subscribe((user) => {
+      if (user.rol === 'admin') {
+        this.router.navigate(['/admin']);
+      } else if (user.rol === 'alumno') {
+        this.router.navigate(['/alumno']);
       }
-    );
+    }, (error: any) => {
+      // Maneja el error de autenticación
+      console.log('Login error:', error);
+    });
   }
-  
   ngOnInit() {
   }
 }

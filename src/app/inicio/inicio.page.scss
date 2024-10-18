@@ -7,18 +7,18 @@
   height: auto;
   margin: 10px;
   border-radius: 10px; /* Bordes redondeados */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
-  transition: transform 0.2s; /* Animación suave al hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s; 
 }
 
 .curso-card:hover {
-  transform: translateY(-5px); /* Efecto de elevación */
+  transform: translateY(-5px); 
 }
 
 .card-title {
   font-weight: bold;
-  font-size: 1.5rem; /* Título más grande */
-  color: #007bff; /* Color azul */
+  font-size: 1.5rem;
+  color: #007bff; 
 }
 
 .card-subtitle {
