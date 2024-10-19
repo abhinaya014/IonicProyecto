@@ -32,7 +32,7 @@ export class AuthService {
     );
   }
   getUser() {
-    return this.user || JSON.parse(localStorage.getItem('user'));
+    return this.user || JSON.parse(localStorage.getItem('user') || '{}');
   }
 
   isLoggedIn(): boolean {
