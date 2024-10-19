@@ -9,6 +9,9 @@ import {map} from 'rxjs/operators';
 
 
 export class AuthService {
+  getCursos() {
+    throw new Error('Method not implemented.');
+  }
   private apiUrl = 'http://34.226.133.9:8000/api'; 
   private cursosUrl = 'http://34.226.133.9:8000/api/curso'; 
 
