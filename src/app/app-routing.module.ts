@@ -12,12 +12,12 @@ const routes: Routes = [
   {
     path: 'inicio',
     loadChildren: () => import('./inicio/inicio.module').then( m => m.InicioPageModule),
-    canActivate: [AuthGuard]
+    canActivate: [authGuard]
   },
   {
     path: 'alta',
     loadChildren: () => import('./alta/alta.module').then( m => m.AltaPageModule),
-    canActivate: [AuthGuard],
+    canActivate: [authGuard],
     data: { role: ['admin'] }
 
   },
