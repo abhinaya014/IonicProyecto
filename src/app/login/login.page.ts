@@ -7,18 +7,21 @@ import { Router } from '@angular/router';
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
+
+
+
 export class LoginPage implements OnInit {
   
   email: string = '';
   password: string = '';
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router) {}
   login() {
-    this.authService.login(this.email, this.password).subscribe((user) => {
+    this.authService.login(this.email, this.password).subscribe((user: { rol: string; }) => {
       if (user.rol === 'admin') {
-        this.router.navigate(['/admin']);
+        this.router.navigate(['/inicio']);
       } else if (user.rol === 'alumno') {
-        this.router.navigate(['/alumno']);
+        this.router.navigate(['/alta']);
       }
     }, (error: any) => {
       // Maneja el error de autenticación

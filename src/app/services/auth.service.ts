@@ -6,46 +6,43 @@ import {map} from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
+
+
 export class AuthService {
-  private apiUrl = 'http://34.226.133.9:8000/api/login'; 
+  private apiUrl = 'http://34.226.133.9:8000/api'; 
   private cursosUrl = 'http://34.226.133.9:8000/api/curso'; 
 
-  private user: any;
+  private user: any = null;
 
 
   constructor(private http: HttpClient) {}
-  
-
-  // Método para obtener un usuario por email
-  getUserByEmail(email: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}?email=${email}`);
-  }
-
-  // Método para el login
   login(email: string, password: string): Observable<any> {
-    return this.http.post<any>(this.apiUrl,{email,password}).pipe(
-      map((response: any) => {
-        this.user = response;
-        return this.user;
+    return this.http.post<any>(`${this.apiUrl}/login`, { email, password }).pipe(
+      map((response: { rol: any; }) => {
+        if (response && response.rol) {
+          this.user = response;
+          // Guardar el usuario en LocalStorage o SessionStorage
+          localStorage.setItem('user', JSON.stringify(this.user));
+        }
+        return response;
       })
     );
-
   }
-
   getUser() {
-    return this.user;
+    return this.user || JSON.parse(localStorage.getItem('user'));
   }
 
   isLoggedIn(): boolean {
-    return this.user != null;
+    return this.getUser() !== null;
+  }
+
+  getRole(): string {
+    const user = this.getUser();
+    return user ? user.rol : '';
   }
 
   logout() {
     this.user = null;
-  }
-
-
-  getCursos(): Observable<any> {
-    return this.http.get(this.cursosUrl);
+    localStorage.removeItem('user');
   }
 }
