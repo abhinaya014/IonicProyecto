@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { authGuard } from './guards/auth.guard';
+import { AuthGuard } from './guards/auth.guard';
 
 
 const routes: Routes = [
@@ -12,12 +12,12 @@ const routes: Routes = [
   {
     path: 'inicio',
     loadChildren: () => import('./inicio/inicio.module').then( m => m.InicioPageModule),
-    canActivate: [authGuard]
+    canActivate: [AuthGuard]
   },
   {
     path: 'alta',
     loadChildren: () => import('./alta/alta.module').then( m => m.AltaPageModule),
-    canActivate: [authGuard],
+    canActivate: [AuthGuard],
     data: { role: ['admin'] }
 
   },
