@@ -14,14 +14,6 @@ export class InicioPage implements OnInit {
   constructor(private authService: AuthService) { }
 
   ngOnInit() {
-    this.loadCursos();
-  }
-
-  loadCursos() {
-    this.authService.getCursos().subscribe((data: { nombre: string; descripcion: string; }[]) => {
-      this.cursos = data;
-    }, (error: any) => {
-      console.error('Error al cargar los cursos:', error);
-    });
+ 
   }
 }

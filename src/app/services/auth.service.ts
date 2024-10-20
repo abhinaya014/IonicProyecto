@@ -7,6 +7,9 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthService {
+  getCursos() {
+    throw new Error('Method not implemented.');
+  }
 
   private apiUrl = 'http://kerakha.duckdns.org:8080/api'; // Reemplaza con tu API de Symfony
 
