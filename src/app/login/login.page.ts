@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 
@@ -7,27 +7,27 @@ import { Router } from '@angular/router';
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
+export class LoginPage {
 
-
-
-export class LoginPage implements OnInit {
-  
   email: string = '';
   password: string = '';
 
   constructor(private authService: AuthService, private router: Router) {}
-  login() {
-    this.authService.login(this.email, this.password).subscribe((user: { rol: string; }) => {
-      if (user.rol === 'admin') {
-        this.router.navigate(['/inicio']);
-      } else if (user.rol === 'alumno') {
-        this.router.navigate(['/alta']);
+
+  // Método para manejar el login
+  onLogin() {
+    this.authService.login(this.email, this.password).subscribe(
+      (      response: { rol: string; }) => {
+        if (response.rol === 'administrador') {
+          this.router.navigate(['/inicio']);
+        } else if (response.rol === 'alumno') {
+          this.router.navigate(['/alta']);
+        }
+      },
+      (      error: any) => {
+        console.error('Login error:', error);
+        alert('Login failed. Please check your credentials.');
       }
-    }, (error: any) => {
-      // Maneja el error de autenticación
-      console.log('Login error:', error);
-    });
-  }
-  ngOnInit() {
+    );
   }
 }

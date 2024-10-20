@@ -7,20 +7,20 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://34.226.133.9:8000/api'; 
-  private cursosUrl = `${this.apiUrl}/curso`;  // URL para obtener los cursos
+
+  private apiUrl = 'http://kerakha.duckdns.org:8080/api'; // Reemplaza con tu API de Symfony
 
   private user: any = null;
 
   constructor(private http: HttpClient) {}
 
-  // Método para login
+  // Método de login
   login(email: string, password: string): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/login`, { email, password }).pipe(
       map((response: { rol: any; }) => {
         if (response && response.rol) {
           this.user = response;
-          // Guardar el usuario en LocalStorage o SessionStorage
+          // Guardar el usuario en LocalStorage
           localStorage.setItem('user', JSON.stringify(this.user));
         }
         return response;
@@ -28,23 +28,14 @@ export class AuthService {
     );
   }
 
-  // Método para obtener los cursos
-  getCursos(): Observable<any> {
-    return this.http.get<any>(this.cursosUrl).pipe(
-      map((response: any) => {
-        return response;
-      })
-    );
-  }
-
-  // Obtener el usuario actual
+  // Obtener el usuario logeado desde LocalStorage
   getUser() {
     return this.user || JSON.parse(localStorage.getItem('user') || '{}');
   }
 
   // Verificar si el usuario está logeado
   isLoggedIn(): boolean {
-    return this.getUser() !== null && this.getUser().rol !== undefined;
+    return this.getUser() !== null && !!this.getUser().rol;
   }
 
   // Obtener el rol del usuario
@@ -53,7 +44,7 @@ export class AuthService {
     return user ? user.rol : '';
   }
 
-  // Método para cerrar sesión
+  // Cerrar sesión
   logout() {
     this.user = null;
     localStorage.removeItem('user');
