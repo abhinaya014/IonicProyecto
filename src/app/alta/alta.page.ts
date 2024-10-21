@@ -13,6 +13,8 @@ export class AltaPage implements OnInit {
 
   alumnos: any[] = [];
   cursos: any[] = [];
+  filteredAlumnos: any[] = [];  // Alumnos filtrados
+
   selectedAlumno: number | null = null;
   selectedCurso: number | null = null;
 
@@ -30,6 +32,17 @@ export class AltaPage implements OnInit {
     this.authService.getCursos().subscribe((cursos: any[]) => {
       this.cursos = cursos;
     });
+  }
+
+  filterAlumnos(event: any) {
+    const searchTerm = event.target.value.toLowerCase();
+    if (searchTerm) {
+      this.filteredAlumnos = this.alumnos.filter(alumno => 
+        alumno.nombre.toLowerCase().includes(searchTerm)
+      );
+    } else {
+      this.filteredAlumnos = this.alumnos;  // Mostrar todos si no hay búsqueda
+    }
   }
 
   asignarAlumnoCurso() {
