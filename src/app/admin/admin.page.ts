@@ -17,17 +17,19 @@ export class AdminPage implements OnInit {
 
   ngOnInit() {
     // Obtenemos el ID del curso desde la URL
-    this.cursoId = +this.route.snapshot.paramMap.get('id');
+    const id = this.route.snapshot.paramMap.get('id');
+    this.cursoId = id ? +id : 0;
     
     // Llamamos al servicio para obtener los alumnos de este curso
-    this.authService.getAlumnosPorCurso(this.cursoId).subscribe(
-      (response: any[]) => {
-        this.alumnos = response;
-      },
-      (error: any) => {
-        console.error('Error al cargar los alumnos', error);
-      }
-    );
+    if (this.cursoId > 0) {  // Solo intentamos cargar alumnos si el cursoId es válido
+      this.authService.getAlumnosPorCurso(this.cursoId).subscribe(
+        (response: any[]) => {
+          this.alumnos = response;
+        },
+        (error: any) => {
+          console.error('Error al cargar los alumnos', error);
+        }
+      );
   }
 
 }
