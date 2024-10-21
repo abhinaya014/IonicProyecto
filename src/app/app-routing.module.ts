@@ -11,7 +11,8 @@ const routes: Routes = [
   path: 'inicio',
   loadChildren: () => import('./inicio/inicio.module').then(m => m.InicioPageModule),
   canActivate: [AuthGuard],
-  data: { role: ['administrador', 'alumno'] } 
+  data: { role: 'administrador' } ,
+  
 
 },
 {
