@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
+import { AlertController } from '@ionic/angular';  // Importar AlertController
+
 
 
 @Component({
@@ -14,13 +16,15 @@ export class AltaPage implements OnInit {
   selectedAlumno: number | null = null;
   selectedCurso: number | null = null;
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService,    private alertController: AlertController 
+  ) {}
 
 
   ngOnInit() {
     // Cargar los alumnos y los cursos
     this.authService.getAlumnos().subscribe((alumnos: any[]) => {
       this.alumnos = alumnos;
+
     });
 
     this.authService.getCursos().subscribe((cursos: any[]) => {
@@ -31,15 +35,27 @@ export class AltaPage implements OnInit {
   asignarAlumnoCurso() {
     if (this.selectedAlumno && this.selectedCurso) {
       this.authService.asignarAlumnoACurso(this.selectedAlumno, this.selectedCurso).subscribe(
-        (response: any) => {
-          console.log('Alumno asignado con éxito', response);
+        async (response: any) => {
+          // Mostrar alerta de éxito
+          await this.presentAlert('Éxito', 'El alumno ha sido asignado correctamente al curso.');
         },
-        (error: any) => {
-          console.error('Error al asignar alumno al curso', error);
+        async (error: any) => {
+          // Mostrar alerta de error
+          await this.presentAlert('Error', 'Hubo un problema al asignar el alumno al curso. Inténtalo de nuevo.');
         }
       );
     } else {
-      console.log('Debes seleccionar un alumno y un curso');
+      // Si no se seleccionó ningún alumno o curso, mostrar una alerta
+      this.presentAlert('Error', 'Debes seleccionar un alumno y un curso.');
     }
+  }
+  async presentAlert(header: string, message: string) {
+    const alert = await this.alertController.create({
+      header: header,
+      message: message,
+      buttons: ['OK']
+    });
+
+    await alert.present();
   }
 }
