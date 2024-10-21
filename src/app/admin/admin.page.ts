@@ -10,7 +10,7 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./admin.page.scss'],
 })
 export class AdminPage implements OnInit {
-  cursoId: number | null = null;
+  cursoId: number = 0;
   alumnos: any[] = [];
 
   constructor(private route: ActivatedRoute, private authService: AuthService) {}
