@@ -22,6 +22,14 @@ const routes: Routes = [
 
   },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
+  {
+    path: 'admin',
+    loadChildren: () => import('./admin/admin.module').then( m => m.AdminPageModule)
+  },
+  {
+    path: 'alumno',
+    loadChildren: () => import('./alumno/alumno.module').then( m => m.AlumnoPageModule)
+  },
 
 
 ];
