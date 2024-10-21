@@ -6,15 +6,26 @@ import { AuthService } from '../services/auth.service';
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
+
+
   constructor(private authService: AuthService, private router: Router) {}
 
-  canActivate(): boolean {
+  canActivate(route: ActivatedRouteSnapshot): boolean {
+    const expectedRole = route.data['role']; 
+    const userRole = this.authService.getRole(); 
+
     if (this.authService.isLoggedIn()) {
-      return true;  // Permite el acceso si el usuario está logeado
-    } else {
-      // Redirigir al login si no está logeado
-      this.router.navigate(['/login']);
-      return false;
+      if (expectedRole && userRole !== expectedRole) {
+    
+        this.router.navigate(['/login']);
+        return false;
+      }
+      return true; 
     }
+
+    this.router.navigate(['/login']);
+    return false;
+
+  
   }
 }

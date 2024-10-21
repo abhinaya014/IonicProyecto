@@ -14,37 +14,36 @@ export class AppComponent implements OnInit {
     { title: 'Login', url: '/login', icon: 'login' },
   ];
 
+  // Datos del usuario, que se mostrarán en el perfil cuando esté logueado
   user = {
     nombre: '',
     email: '',
     rol: ''
   };
 
-  isLoggedIn = false;
+  isLoggedIn = false; // Estado para verificar si el usuario está logueado
 
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
-    this.checkLoginStatus();
-  }
-
-  // Método para verificar si el usuario está logueado
-  checkLoginStatus() {
-    const userData = this.authService.getUser(); // Obtener usuario de localStorage
-    if (userData && userData.email) { // Si hay un email, consideramos que está logueado
+    // Verificamos si hay un usuario logueado al iniciar la aplicación
+    const userData = this.authService.getUser();
+    if (userData && userData.email) { // Verificamos si el usuario tiene un email (significa que está logueado)
       this.user = userData; // Asignamos los datos del usuario
       this.isLoggedIn = true; // Cambiamos el estado a logueado
     } else {
+      // Si no hay usuario logueado, redirigimos al login
       this.isLoggedIn = false;
-      this.router.navigate(['/login']); // Si no está logueado, redirigir al login
+      this.router.navigate(['/login']);
     }
   }
 
-  // Método para cerrar sesión
   logout() {
-    this.authService.logout(); // Llamamos al servicio de logout
-    this.isLoggedIn = false; // Cambiamos el estado de sesión
-    this.user = { nombre: '', email: '', rol: '' }; // Limpiamos los datos del usuario
-    this.router.navigate(['/login']); // Redirigimos al login
+    // Llamamos al servicio de logout
+    this.authService.logout();
+    // Cambiamos el estado a no logueado
+    this.isLoggedIn = false;
+    // Redirigimos al login tras cerrar sesión
+    this.router.navigate(['/login']);
   }
 }

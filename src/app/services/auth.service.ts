@@ -8,7 +8,7 @@ import {Router} from '@angular/router';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://kerakha.duckdns.org:8000/api'; // URL de la API de Symfony
+  private apiUrl = 'http://kerakha.duckdns.org:8000/api'; 
   private user: any = null;
 
   constructor(private http: HttpClient, private router: Router) {}
@@ -29,16 +29,14 @@ export class AuthService {
     return this.user || JSON.parse(localStorage.getItem('users') || '{}');
   }
 
-
   getRole(): string {
     const user = this.getUser();
     return user ? user.rol : '';
   }
 
   isLoggedIn(): boolean {
-    return !!localStorage.getItem('user'); 
+    return !!localStorage.getItem('user');
   }
-
 
   logout() {
     localStorage.removeItem('user'); 
