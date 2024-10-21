@@ -1,5 +1,6 @@
 <ion-app>
   <ion-split-pane contentId="main-content">
+    <!-- Solo mostrar el menú si el usuario está logueado -->
     <ion-menu contentId="main-content" type="overlay" *ngIf="isLoggedIn">
       <ion-header>
         <ion-toolbar>
@@ -8,6 +9,7 @@
       </ion-header>
 
       <ion-content>
+        <!-- Mostrar perfil del usuario -->
         <ion-item lines="none">
           <ion-avatar slot="start">
             <img src="assets/img/avatar-placeholder.png" alt="Perfil">
@@ -19,23 +21,41 @@
           </ion-label>
         </ion-item>
 
+        <!-- Botón de configuración -->
+        <ion-item routerLink="/profile">
+          <ion-icon name="settings-outline" slot="start"></ion-icon>
+          <ion-label>Configuración</ion-label>
+        </ion-item>
+
         <!-- Botón de Cerrar Sesión -->
         <ion-item (click)="logout()">
           <ion-icon name="log-out-outline" slot="start"></ion-icon>
           <ion-label>Cerrar Sesión</ion-label>
         </ion-item>
 
-        <!-- Botón de configuración -->
-        <ion-item routerLink="/profile">
-          <ion-icon name="settings-outline" slot="start"></ion-icon>
-          <ion-label>Configuración</ion-label>
-        </ion-item>
+        <!-- Títulos del menú -->
+        <ion-list id="inbox-list">
+          <ion-list-header>Menú</ion-list-header>
+          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
+            <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
+              <ion-icon aria-hidden="true" slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
+              <ion-label>{{ p.title }}</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+        </ion-list>
       </ion-content>
     </ion-menu>
 
-    <!-- Mostrar solo si está logueado -->
-    <ng-template #notLoggedIn>
-      <ion-router-outlet id="main-content"></ion-router-outlet>
-    </ng-template>
+    <!-- Contenido principal -->
+    <ion-router-outlet id="main-content"></ion-router-outlet>
   </ion-split-pane>
+
+  <!-- Mostrar si el usuario no está logueado -->
+  <ng-template #notLoggedIn>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Inicia sesión para acceder al contenido</ion-title>
+      </ion-toolbar>
+    </ion-header>
+  </ng-template>
 </ion-app>
