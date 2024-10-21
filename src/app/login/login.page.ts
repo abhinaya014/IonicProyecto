@@ -18,9 +18,9 @@ export class LoginPage {
     this.authService.login(this.email, this.password).subscribe(
       (response: { rol: string; }) => {
         if (response.rol === 'administrador') {
-          this.router.navigate(['/admin']); // Ruta para administradores
+          this.router.navigate(['/inicio']); // Ruta para administradores
         } else if (response.rol === 'alumno') {
-          this.router.navigate(['/alumno']); // Ruta para alumnos
+          this.router.navigate(['/inicio']); // Ruta para alumnos
         } else {
           this.errorMessage = 'Rol desconocido';
         }
