@@ -13,7 +13,7 @@ export class AltaPage implements OnInit {
 
   alumnos: any[] = [];
   cursos: any[] = [];
-  filteredAlumnos: any[] = [];  // Alumnos filtrados
+  filteredAlumnos: any[] = []; 
 
   selectedAlumno: number | null = null;
   selectedCurso: number | null = null;
@@ -26,6 +26,8 @@ export class AltaPage implements OnInit {
     // Cargar los alumnos y los cursos
     this.authService.getAlumnos().subscribe((alumnos: any[]) => {
       this.alumnos = alumnos;
+      this.filteredAlumnos = [...this.alumnos]; // Mostrar todos los alumnos al inicio
+
 
     });
 
