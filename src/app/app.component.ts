@@ -11,7 +11,7 @@ export class AppComponent implements OnInit {
   public appPages = [
     { title: 'Inicio', url: '/inicio', icon: 'home' },
     { title: 'Alta', url: '/alta', icon: 'edit' },
-    //{ title: 'Login', url: '/login', icon: 'login' },
+    { title: 'Login', url: '/login', icon: 'login' },
   ];
 
   // Datos del usuario, que se mostrarán en el perfil cuando esté logueado
