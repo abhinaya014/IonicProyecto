@@ -7,15 +7,11 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthService {
-  getCursos() {
-    throw new Error('Method not implemented.');
-  }
-
-  private apiUrl = 'http://kerakha.duckdns.org:8000/api'; 
-
+  private apiUrl = 'http://kerakha.duckdns.org:8000/api'; // URL de la API de Symfony
   private user: any = null;
 
   constructor(private http: HttpClient) {}
+
   login(email: string, password: string): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/login`, { email, password }).pipe(
       map((response: { rol: any; }) => {
@@ -30,7 +26,7 @@ export class AuthService {
   }
 
   getUser() {
-    return this.user || JSON.parse(localStorage.getItem('user') || '{}');
+    return this.user || JSON.parse(localStorage.getItem('users') || '{}');
   }
 
   isLoggedIn(): boolean {
@@ -44,6 +40,6 @@ export class AuthService {
 
   logout() {
     this.user = null;
-    localStorage.removeItem('user');
+    localStorage.removeItem('users');
   }
 }
