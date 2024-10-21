@@ -20,15 +20,20 @@ export class AuthService {
         if (response && response.rol) {
           // Guardar los datos del usuario en LocalStorage
           localStorage.setItem('user', JSON.stringify(response));
+          this.user = response;  // Mantener en memoria
         }
         return response;
       })
     );
   }
 
+
   // Obtener el usuario logueado desde LocalStorage
   getUser() {
-    return JSON.parse(localStorage.getItem('user') || '{}');
+    if (!this.user) {
+      this.user = JSON.parse(localStorage.getItem('user') || 'null');
+    }
+    return this.user;
   }
 
   // Obtener el rol del usuario logueado
@@ -36,7 +41,6 @@ export class AuthService {
     const user = this.getUser();
     return user ? user.rol : '';
   }
-
   isLoggedIn(): boolean {
     return !!localStorage.getItem('user');
   }
@@ -44,11 +48,15 @@ export class AuthService {
   logout() {
     this.user = null;
     localStorage.removeItem('user');
+    this.router.navigate(['/login']);  // Redirigir al login después de cerrar sesión
   }
 
+
+
   getCursos(): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/curso`);  
+    return this.http.get<any>(`${this.apiUrl}/curso`);
   }
+
 
   getAlumnosPorCurso(cursoId: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/curso/${cursoId}/alumnos`);
