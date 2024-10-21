@@ -17,9 +17,8 @@ export class AuthService {
     return this.http.post<any>(`${this.apiUrl}/login`, { email, password }).pipe(
       map((response: { rol: any; }) => {
         if (response && response.rol) {
-          this.user = response;
-          // Guardar el usuario en LocalStorage
-          localStorage.setItem('user', JSON.stringify(this.user));
+          // Almacenar los datos del usuario en LocalStorage
+          localStorage.setItem('user', JSON.stringify(response));
         }
         return response;
       })
@@ -37,13 +36,12 @@ export class AuthService {
   }
 
   isLoggedIn(): boolean {
-    return !!localStorage.getItem('user');  // Verifica si existe un usuario guardado
+    return !!localStorage.getItem('user'); 
   }
 
-  // Método para cerrar sesión
+
   logout() {
-    this.user = null;
-    localStorage.removeItem('user');
+    localStorage.removeItem('user'); 
   }
 
   getCursos(): Observable<any> {

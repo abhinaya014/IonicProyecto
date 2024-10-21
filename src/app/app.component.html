@@ -9,10 +9,9 @@
 
       <ion-content>
         <ng-container *ngIf="isLoggedIn; else notLoggedIn">
-          <!-- Sección del perfil con imagen, nombre, email y rol solo si está logueado -->
+          <!-- Mostrar perfil solo si está logueado -->
           <ion-item lines="none">
             <ion-avatar slot="start">
-              <!-- Imagen de perfil vacía por ahora -->
               <img src="assets/img/avatar-placeholder.png" alt="Perfil">
             </ion-avatar>
             <ion-label>
@@ -29,10 +28,10 @@
           </ion-item>
         </ng-container>
 
-        <!-- Si el usuario no está logueado, mostramos nada o un mensaje vacío -->
+        <!-- Mostrar mensaje o contenido alternativo si no está logueado -->
         <ng-template #notLoggedIn>
           <ion-item lines="none">
-            <ion-label>Inicia sesión para ver el contenido</ion-label>
+            <ion-label>Inicia sesión para acceder al perfil</ion-label>
           </ion-item>
         </ng-template>
 
