@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from './services/auth.service';
 @Component({
   selector: 'app-root',
@@ -20,8 +21,25 @@ export class AppComponent {
   rol: ''
 };
 
-constructor(private authService: AuthService) {}
+isLoggedIn = false;
+
+constructor(private authService: AuthService, private router: Router) {}
+
 ngOnInit() {
-  this.user = this.authService.getUser();
+  // Verificar si el usuario está logeado
+  const userData = this.authService.getUser();
+  if (userData) {
+    this.user = userData;
+    this.isLoggedIn = true;
+  } else {
+    // Si no está logeado, redirigir al login
+    this.router.navigate(['/login']);
+  }
+}
+
+logout() {
+  this.authService.logout();
+  this.isLoggedIn = false;
+  this.router.navigate(['/login']);
 }
 }

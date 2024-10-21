@@ -8,22 +8,30 @@
       </ion-header>
 
       <ion-content>
-        <!-- Sección del perfil con imagen, nombre, email y rol -->
-        <ion-item lines="none">
-          <ion-avatar slot="start">
-            <!-- Imagen de perfil vacía por ahora -->
-            <img src="assets/img/avatar-placeholder.png" alt="Perfil">
-          </ion-avatar>
-          <ion-label>
-            <h2>{{ user.nombre }}</h2> <!-- Nombre del usuario -->
-            <p>{{ user.email }}</p> <!-- Email del usuario -->
-            <p>{{ user.rol }}</p> <!-- Rol del usuario (alumno o administrador) -->
-          </ion-label>
-        </ion-item>
+        <ng-container *ngIf="isLoggedIn">
+          <!-- Sección del perfil con imagen, nombre, email y rol -->
+          <ion-item lines="none">
+            <ion-avatar slot="start">
+              <!-- Imagen de perfil vacía por ahora -->
+              <img src="assets/img/avatar-placeholder.png" alt="Perfil">
+            </ion-avatar>
+            <ion-label>
+              <h2>{{ user.nombre }}</h2> <!-- Nombre del usuario -->
+              <p>{{ user.email }}</p> <!-- Email del usuario -->
+              <p>{{ user.rol }}</p> <!-- Rol del usuario (alumno o administrador) -->
+            </ion-label>
+          </ion-item>
+
+          <!-- Botón de Cerrar Sesión -->
+          <ion-item (click)="logout()">
+            <ion-icon name="log-out-outline" slot="start"></ion-icon>
+            <ion-label>Cerrar Sesión</ion-label>
+          </ion-item>
+        </ng-container>
 
         <ion-list id="inbox-list">
           <ion-list-header>Menu</ion-list-header>
-          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
+          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
             <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
               <ion-icon aria-hidden="true" slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
               <ion-label>{{ p.title }}</ion-label>
