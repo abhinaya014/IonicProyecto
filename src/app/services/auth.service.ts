@@ -8,6 +8,7 @@ import {Router} from '@angular/router';
   providedIn: 'root'
 })
 export class AuthService {
+
   private apiUrl = 'http://kerakha.duckdns.org:8000/api'; 
   private user: any = null;
 
@@ -15,7 +16,7 @@ export class AuthService {
 
   login(email: string, password: string): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/login`, { email, password }).pipe(
-      map(response => {
+      map((response: { rol: any; }) => {
         if (response && response.rol) {
           // Guardar los datos del usuario en LocalStorage
           localStorage.setItem('user', JSON.stringify(response));
@@ -54,4 +55,13 @@ export class AuthService {
     return this.http.get<any>(`${this.apiUrl}/curso/${cursoId}/alumnos`);
   }
   
+
+  asignarAlumnoACurso(alumnoId: number, cursoId: number): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/alumnocurso`, { alumno_id: alumnoId, crso_id: cursoId });
+  }
+  getAlumnos(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/users`);
+  }
+
+
 }

@@ -6,19 +6,31 @@
 
 <ion-content [fullscreen]="true" class="ion-padding">
   <div class="form-container">
-    <h1 class="form-title">ALMI</h1>
-    <form >
+    <h1 class="form-title">Asignar Alumno a Curso</h1>
+
+    <form (ngSubmit)="asignarAlumnoCurso()">
+      <!-- Dropdown para seleccionar un alumno -->
       <ion-item>
-        <ion-label position="floating">Nombre de Usuario</ion-label>
-        <ion-input type="text" name="nombreUsuario"></ion-input>
+        <ion-label>Alumno</ion-label>
+        <ion-select [(ngModel)]="selectedAlumno" name="alumno">
+          <ion-select-option *ngFor="let alumno of alumnos" [value]="alumno.id">
+            {{ alumno.nombre }}
+          </ion-select-option>
+        </ion-select>
       </ion-item>
 
+      <!-- Dropdown para seleccionar un curso -->
       <ion-item>
-        <ion-label position="floating">Nombre del Curso</ion-label>
-        <ion-input type="text"  name="nombreCurso"></ion-input>
+        <ion-label>Curso</ion-label>
+        <ion-select [(ngModel)]="selectedCurso" name="curso">
+          <ion-select-option *ngFor="let curso of cursos" [value]="curso.id">
+            {{ curso.nombre }}
+          </ion-select-option>
+        </ion-select>
       </ion-item>
 
-      <ion-button expand="full" type="submit" class="submit-button" >Enviar</ion-button>
+      <!-- Botón para enviar la asignación -->
+      <ion-button expand="full" type="submit">Asignar Alumno</ion-button>
     </form>
   </div>
 </ion-content>
