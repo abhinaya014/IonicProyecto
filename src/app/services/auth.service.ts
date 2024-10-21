@@ -11,13 +11,11 @@ export class AuthService {
     throw new Error('Method not implemented.');
   }
 
-  private apiUrl = 'http://kerakha.duckdns.org:8000/api';
+  private apiUrl = 'http://kerakha.duckdns.org:8000/api'; 
 
   private user: any = null;
 
   constructor(private http: HttpClient) {}
-
-  // Método de login
   login(email: string, password: string): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/login`, { email, password }).pipe(
       map((response: { rol: any; }) => {
@@ -31,23 +29,19 @@ export class AuthService {
     );
   }
 
-  // Obtener el usuario logeado desde LocalStorage
   getUser() {
-    return this.user || JSON.parse(localStorage.getItem('users') || '{}');
+    return this.user || JSON.parse(localStorage.getItem('user') || '{}');
   }
 
-  // Verificar si el usuario está logeado
   isLoggedIn(): boolean {
-    return this.getUser() !== null && !!this.getUser().rol;
+    return !!this.getUser();
   }
 
-  // Obtener el rol del usuario
   getRole(): string {
     const user = this.getUser();
     return user ? user.rol : '';
   }
 
-  // Cerrar sesión
   logout() {
     this.user = null;
     localStorage.removeItem('user');

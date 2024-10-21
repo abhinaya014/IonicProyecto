@@ -18,7 +18,7 @@ const routes: Routes = [
     path: 'alta',
     loadChildren: () => import('./alta/alta.module').then( m => m.AltaPageModule),
     canActivate: [AuthGuard],
-    data: { role: ['admin'] }
+    data: { role: ['administrador'] }
 
   },
   { path: '', redirectTo: 'login', pathMatch: 'full' },

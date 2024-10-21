@@ -8,25 +8,23 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage {
-
   email: string = '';
   password: string = '';
+  errorMessage: string = '';
 
   constructor(private authService: AuthService, private router: Router) {}
 
-  // Método para manejar el login
-  onLogin() {
+  login() {
     this.authService.login(this.email, this.password).subscribe(
-      (      response: { rol: string; }) => {
+      (response: { rol: string; }) => {
         if (response.rol === 'administrador') {
           this.router.navigate(['/inicio']);
         } else if (response.rol === 'alumno') {
-          this.router.navigate(['/alta']);
+          this.router.navigate(['/inicio']);
         }
       },
-      (      error: any) => {
-        console.error('Login error:', error);
-        alert('Login failed. Please check your credentials.');
+      (error: any) => {
+        this.errorMessage = 'Credenciales incorrectas o problemas en el servidor';
       }
     );
   }
