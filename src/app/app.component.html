@@ -8,25 +8,7 @@
       </ion-header>
 
       <ion-content>
-        <ng-container *ngIf="isLoggedIn; else notLoggedIn">
-          <!-- Mostrar perfil solo si está logueado -->
-          <ion-item lines="none">
-            <ion-avatar slot="start">
-              <img src="assets/img/avatar-placeholder.png" alt="Perfil">
-            </ion-avatar>
-            <ion-label>
-              <h2>nombre {{ user.nombre }}</h2> <!-- Nombre del usuario -->
-              <p>email{{ user.email }}</p> <!-- Email del usuario -->
-              <p>rol{{ user.rol }}</p> <!-- Rol del usuario (alumno o administrador) -->
-            </ion-label>
-          </ion-item>
-
-          <!-- Botón de Cerrar Sesión -->
-          <ion-item (click)="logout()">
-            <ion-icon name="log-out-outline" slot="start"></ion-icon>
-            <ion-label>Cerrar Sesión</ion-label>
-          </ion-item>
-        </ng-container>
+       
 
         <!-- Mostrar mensaje o contenido alternativo si no está logueado -->
         <ng-template #notLoggedIn>
@@ -36,6 +18,25 @@
         </ng-template>
 
         <ion-list id="inbox-list">
+          <ng-container *ngIf="isLoggedIn; else notLoggedIn">
+            <!-- Mostrar perfil solo si está logueado -->
+            <ion-item lines="none">
+              <ion-avatar slot="start">
+                <img src="assets/img/avatar-placeholder.png" alt="Perfil">
+              </ion-avatar>
+              <ion-label>
+                <h2>nombre {{ user.nombre }}</h2> <!-- Nombre del usuario -->
+                <p>email{{ user.email }}</p> <!-- Email del usuario -->
+                <p>rol{{ user.rol }}</p> <!-- Rol del usuario (alumno o administrador) -->
+              </ion-label>
+            </ion-item>
+  
+            <!-- Botón de Cerrar Sesión -->
+            <ion-item (click)="logout()">
+              <ion-icon name="log-out-outline" slot="start"></ion-icon>
+              <ion-label>Cerrar Sesión</ion-label>
+            </ion-item>
+          </ng-container>
           <ion-list-header>Menu</ion-list-header>
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
             <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
