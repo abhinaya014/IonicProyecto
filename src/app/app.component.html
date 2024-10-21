@@ -8,8 +8,8 @@
       </ion-header>
 
       <ion-content>
-        <ng-container *ngIf="isLoggedIn">
-          <!-- Sección del perfil con imagen, nombre, email y rol -->
+        <ng-container *ngIf="isLoggedIn; else notLoggedIn">
+          <!-- Sección del perfil con imagen, nombre, email y rol solo si está logueado -->
           <ion-item lines="none">
             <ion-avatar slot="start">
               <!-- Imagen de perfil vacía por ahora -->
@@ -28,6 +28,13 @@
             <ion-label>Cerrar Sesión</ion-label>
           </ion-item>
         </ng-container>
+
+        <!-- Si el usuario no está logueado, mostramos nada o un mensaje vacío -->
+        <ng-template #notLoggedIn>
+          <ion-item lines="none">
+            <ion-label>Inicia sesión para ver el contenido</ion-label>
+          </ion-item>
+        </ng-template>
 
         <ion-list id="inbox-list">
           <ion-list-header>Menu</ion-list-header>
