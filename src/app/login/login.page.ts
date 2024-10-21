@@ -13,13 +13,13 @@ export class LoginPage {
   errorMessage: string = '';
 
   constructor(private authService: AuthService, private router: Router) {}
-
   login() {
     this.authService.login(this.email, this.password).subscribe(
-      (response: { rol: any; }) => {
-        // Guardar el rol del usuario en LocalStorage
-        if (response.rol) {
-          this.router.navigate(['/inicio']);  // Redirige a la página de inicio para ambos roles
+      (response: { rol: string; }) => {
+        if (response.rol === 'administrador') {
+          this.router.navigate(['/inicio']);
+        } else if (response.rol === 'alumno') {
+          this.router.navigate(['/inicio']);
         }
       },
       (error: any) => {

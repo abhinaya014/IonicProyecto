@@ -37,13 +37,13 @@ export class AuthService {
   }
 
   isLoggedIn(): boolean {
-    return !!this.getUser();  // Verifica si el usuario está logeado
+    return !!localStorage.getItem('user');  // Verifica si existe un usuario guardado
   }
 
+  // Método para cerrar sesión
   logout() {
     this.user = null;
     localStorage.removeItem('user');
-    this.router.navigate(['/login']);  // Redirige al login tras cerrar sesión
   }
 
   getCursos(): Observable<any> {
