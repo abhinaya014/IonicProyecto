@@ -1,41 +1,42 @@
 <ion-app>
   <ion-split-pane contentId="main-content">
-    <!-- Solo mostrar el menú si el usuario está logueado -->
-    <ion-menu contentId="main-content" type="overlay" *ngIf="isLoggedIn">
+    <ion-menu contentId="main-content" type="overlay">
       <ion-header>
         <ion-toolbar>
-          <ion-title>Menú</ion-title>
+          <ion-title>Perfil</ion-title>
         </ion-toolbar>
       </ion-header>
 
       <ion-content>
-        <!-- Mostrar perfil del usuario -->
-        <ion-item lines="none">
-          <ion-avatar slot="start">
-            <img src="assets/img/avatar-placeholder.png" alt="Perfil">
-          </ion-avatar>
-          <ion-label>
-            <h2>{{ user.nombre }}</h2>
-            <p>{{ user.email }}</p>
-            <p>{{ user.rol }}</p>
-          </ion-label>
-        </ion-item>
+        <ng-container *ngIf="isLoggedIn; else notLoggedIn">
+          <!-- Mostrar perfil solo si está logueado -->
+          <ion-item lines="none">
+            <ion-avatar slot="start">
+              <img src="assets/img/avatar-placeholder.png" alt="Perfil">
+            </ion-avatar>
+            <ion-label>
+              <h2>nombre {{ user.nombre }}</h2> <!-- Nombre del usuario -->
+              <p>email{{ user.email }}</p> <!-- Email del usuario -->
+              <p>rol{{ user.rol }}</p> <!-- Rol del usuario (alumno o administrador) -->
+            </ion-label>
+          </ion-item>
 
-        <!-- Botón de configuración -->
-        <ion-item routerLink="/profile">
-          <ion-icon name="settings-outline" slot="start"></ion-icon>
-          <ion-label>Configuración</ion-label>
-        </ion-item>
+          <!-- Botón de Cerrar Sesión -->
+          <ion-item (click)="logout()">
+            <ion-icon name="log-out-outline" slot="start"></ion-icon>
+            <ion-label>Cerrar Sesión</ion-label>
+          </ion-item>
+        </ng-container>
 
-        <!-- Botón de Cerrar Sesión -->
-        <ion-item (click)="logout()">
-          <ion-icon name="log-out-outline" slot="start"></ion-icon>
-          <ion-label>Cerrar Sesión</ion-label>
-        </ion-item>
+        <!-- Mostrar mensaje o contenido alternativo si no está logueado -->
+        <ng-template #notLoggedIn>
+          <ion-item lines="none">
+            <ion-label>Inicia sesión para acceder al perfil</ion-label>
+          </ion-item>
+        </ng-template>
 
-        <!-- Títulos del menú -->
         <ion-list id="inbox-list">
-          <ion-list-header>Menú</ion-list-header>
+          <ion-list-header>Menu</ion-list-header>
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
             <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
               <ion-icon aria-hidden="true" slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
@@ -46,16 +47,6 @@
       </ion-content>
     </ion-menu>
 
-    <!-- Contenido principal -->
     <ion-router-outlet id="main-content"></ion-router-outlet>
   </ion-split-pane>
-
-  <!-- Mostrar si el usuario no está logueado -->
-  <ng-template #notLoggedIn>
-    <ion-header>
-      <ion-toolbar>
-        <ion-title>Inicia sesión para acceder al contenido</ion-title>
-      </ion-toolbar>
-    </ion-header>
-  </ng-template>
 </ion-app>
