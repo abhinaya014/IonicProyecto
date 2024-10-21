@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from './services/auth.service';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -10,6 +11,17 @@ export class AppComponent {
     { title: 'Alta', url: '/alta', icon: 'edit' },
     { title: 'Login', url: '/login', icon: 'login' },
   ];
-  public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
-  constructor() {}
+
+  
+ // public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
+ user = {
+  nombre: '',
+  email: '',
+  rol: ''
+};
+
+constructor(private authService: AuthService) {}
+ngOnInit() {
+  this.user = this.authService.getUser();
+}
 }
