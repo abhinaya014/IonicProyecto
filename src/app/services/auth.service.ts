@@ -11,7 +11,7 @@ export class AuthService {
     throw new Error('Method not implemented.');
   }
 
-  private apiUrl = 'http://kerakha.duckdns.org:8080/api'; // Reemplaza con tu API de Symfony
+  private apiUrl = 'http://kerakha.duckdns.org:8000/api';
 
   private user: any = null;
 
@@ -33,7 +33,7 @@ export class AuthService {
 
   // Obtener el usuario logeado desde LocalStorage
   getUser() {
-    return this.user || JSON.parse(localStorage.getItem('user') || '{}');
+    return this.user || JSON.parse(localStorage.getItem('users') || '{}');
   }
 
   // Verificar si el usuario está logeado
