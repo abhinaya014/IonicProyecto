@@ -9,14 +9,14 @@
     <h1 class="form-title">ALMI</h1>
     <form (ngSubmit)="asignarAlumnoCurso()">
       <ion-item>
-        <ion-label position="floating">Selecciona un Alumno</ion-label>
+        <ion-label position="floating"></ion-label>
         <ion-select [(ngModel)]="selectedAlumno" name="alumno" placeholder="Selecciona un Alumno">
           <ion-select-option *ngFor="let alumno of alumnos" [value]="alumno.id">{{ alumno.nombre }}</ion-select-option>
         </ion-select>
       </ion-item>
 
       <ion-item>
-        <ion-label position="floating">Selecciona un Curso</ion-label>
+        <ion-label position="floating">Curso  </ion-label>
         <ion-select [(ngModel)]="selectedCurso" name="curso" placeholder="Selecciona un Curso">
           <ion-select-option *ngFor="let curso of cursos" [value]="curso.id">{{ curso.nombre }}</ion-select-option>
         </ion-select>
