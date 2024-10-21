@@ -21,7 +21,7 @@ export class AppComponent implements OnInit {
     rol: ''
   };
 
-  //isLoggedIn = false; 
+  isLoggedIn = false; 
 
   constructor(private authService: AuthService, private router: Router) {}
   ngOnInit() {
