@@ -13,20 +13,20 @@ export class AppComponent implements OnInit {
     { title: 'Alta', url: '/alta', icon: 'edit' },
     { title: 'Login', url: '/login', icon: 'login' },
   ];
-
-  // Datos del usuario, que se mostrarán en el perfil cuando esté logueado
   user = {
     nombre: '',
     email: '',
     rol: ''
   };
 
-  isLoggedIn = false; 
+  isLoggedIn = false;
 
   constructor(private authService: AuthService, private router: Router) {}
+
   ngOnInit() {
     this.loadUser();
   }
+
   loadUser() {
     const userData = this.authService.getUser();
     if (userData && userData.email) {
@@ -43,5 +43,4 @@ export class AppComponent implements OnInit {
     this.isLoggedIn = false;
     this.router.navigate(['/login']);
   }
-  
 }
