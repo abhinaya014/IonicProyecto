@@ -11,15 +11,15 @@ export class LoginPage {
   email: string = '';
   password: string = '';
   errorMessage: string = '';
-
   constructor(private authService: AuthService, private router: Router) {}
+
   login() {
     this.authService.login(this.email, this.password).subscribe(
       (response: { rol: string; }) => {
         if (response.rol === 'administrador') {
-          this.router.navigate(['/inicio']);
+          this.router.navigate(['/inicio']);  // Redirige al inicio si es administrador
         } else if (response.rol === 'alumno') {
-          this.router.navigate(['/inicio']);
+          this.router.navigate(['/inicio']);  // Redirige al inicio si es alumno
         }
       },
       (error: any) => {

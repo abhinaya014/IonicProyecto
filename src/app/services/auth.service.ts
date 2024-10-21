@@ -8,42 +8,42 @@ import {Router} from '@angular/router';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://kerakha.duckdns.org:8000/api'; // URL de la API de Symfony
+  private apiUrl = 'http://kerakha.duckdns.org:8000/api'; 
   private user: any = null;
 
   constructor(private http: HttpClient, private router: Router) {}
 
   login(email: string, password: string): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/login`, { email, password }).pipe(
-      map((response: { rol: any; }) => {
+      map(response => {
         if (response && response.rol) {
-          this.user = response;
-          // Guardar el usuario en LocalStorage
-          localStorage.setItem('user', JSON.stringify(this.user));
+          // Guardar los datos del usuario en LocalStorage
+          localStorage.setItem('user', JSON.stringify(response));
         }
         return response;
       })
     );
   }
 
+  // Obtener el usuario logueado desde LocalStorage
   getUser() {
-    return this.user || JSON.parse(localStorage.getItem('users') || '{}');
+    return JSON.parse(localStorage.getItem('user') || '{}');
   }
 
-
+  // Obtener el rol del usuario logueado
   getRole(): string {
     const user = this.getUser();
     return user ? user.rol : '';
   }
 
+  // Verificar si el usuario está logueado
   isLoggedIn(): boolean {
-    return !!localStorage.getItem('user');  // Verifica si existe un usuario guardado
+    return !!localStorage.getItem('user');  // Verifica si hay datos de usuario en el LocalStorage
   }
 
   // Método para cerrar sesión
   logout() {
-    this.user = null;
-    localStorage.removeItem('user');
+    localStorage.removeItem('user');  // Eliminar los datos del usuario del LocalStorage
   }
 
   getCursos(): Observable<any> {
