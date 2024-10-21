@@ -42,4 +42,9 @@ export class AuthService {
     this.user = null;
     localStorage.removeItem('users');
   }
+
+  getCursos(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/curso`);  
+  }
+  
 }

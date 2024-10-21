@@ -16,13 +16,10 @@ export class LoginPage {
 
   login() {
     this.authService.login(this.email, this.password).subscribe(
-      (response: { rol: string; }) => {
-        if (response.rol === 'administrador') {
-          this.router.navigate(['/inicio']); // Ruta para administradores
-        } else if (response.rol === 'alumno') {
-          this.router.navigate(['/inicio']); // Ruta para alumnos
-        } else {
-          this.errorMessage = 'Rol desconocido';
+      (response: { rol: any; }) => {
+        // Guardar el rol del usuario en LocalStorage
+        if (response.rol) {
+          this.router.navigate(['/inicio']);  // Redirige a la página de inicio para ambos roles
         }
       },
       (error: any) => {
