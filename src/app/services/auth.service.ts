@@ -37,14 +37,13 @@ export class AuthService {
     return user ? user.rol : '';
   }
 
-  // Verificar si el usuario está logueado
   isLoggedIn(): boolean {
-    return !!localStorage.getItem('user');  // Verifica si hay datos de usuario en el LocalStorage
+    return !!localStorage.getItem('user');
   }
-
   // Método para cerrar sesión
   logout() {
-    localStorage.removeItem('user');  // Eliminar los datos del usuario del LocalStorage
+    this.user = null;
+    localStorage.removeItem('user');
   }
 
   getCursos(): Observable<any> {
