@@ -8,7 +8,7 @@ import {Router} from '@angular/router';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://kerakha.duckdns.org:8000/api'; 
+  private apiUrl = 'http://kerakha.duckdns.org:8000/api'; // URL de la API de Symfony
   private user: any = null;
 
   constructor(private http: HttpClient, private router: Router) {}
@@ -17,8 +17,9 @@ export class AuthService {
     return this.http.post<any>(`${this.apiUrl}/login`, { email, password }).pipe(
       map((response: { rol: any; }) => {
         if (response && response.rol) {
-          // Almacenar los datos del usuario en LocalStorage
-          localStorage.setItem('user', JSON.stringify(response));
+          this.user = response;
+          // Guardar el usuario en LocalStorage
+          localStorage.setItem('user', JSON.stringify(this.user));
         }
         return response;
       })
@@ -29,17 +30,20 @@ export class AuthService {
     return this.user || JSON.parse(localStorage.getItem('users') || '{}');
   }
 
+
   getRole(): string {
     const user = this.getUser();
     return user ? user.rol : '';
   }
 
   isLoggedIn(): boolean {
-    return !!localStorage.getItem('user');
+    return !!localStorage.getItem('user');  // Verifica si existe un usuario guardado
   }
 
+  // Método para cerrar sesión
   logout() {
-    localStorage.removeItem('user'); 
+    this.user = null;
+    localStorage.removeItem('user');
   }
 
   getCursos(): Observable<any> {
