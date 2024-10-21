@@ -21,7 +21,7 @@ export class AppComponent implements OnInit {
     rol: ''
   };
 
-  isLoggedIn = false; 
+  //isLoggedIn = false; 
 
   constructor(private authService: AuthService, private router: Router) {}
   ngOnInit() {
@@ -43,4 +43,5 @@ export class AppComponent implements OnInit {
     this.isLoggedIn = false;
     this.router.navigate(['/login']);
   }
+  
 }
