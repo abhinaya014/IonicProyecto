@@ -1,13 +1,21 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>admin</ion-title>
+    <ion-title>Alumnos del curso</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">admin</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <ion-list *ngIf="alumnos.length > 0">
+    <ion-item *ngFor="let alumno of alumnos">
+      <ion-label>
+        <h2>{{ alumno.nombre }}</h2>
+        <p>Email: {{ alumno.email }}</p>
+        <p>Nota: {{ alumno.nota }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-item *ngIf="alumnos.length === 0">
+    <ion-label>No hay alumnos matriculados en este curso.</ion-label>
+  </ion-item>
 </ion-content>
