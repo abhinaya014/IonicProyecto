@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class AuthService {
   private apiUrl = 'http://kerakha.duckdns.org:8000/api'; // URL de la API de Symfony
   private user: any = null;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   login(email: string, password: string): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/login`, { email, password }).pipe(
@@ -29,18 +30,20 @@ export class AuthService {
     return this.user || JSON.parse(localStorage.getItem('users') || '{}');
   }
 
-  isLoggedIn(): boolean {
-    return !!this.getUser();
-  }
 
   getRole(): string {
     const user = this.getUser();
     return user ? user.rol : '';
   }
 
+  isLoggedIn(): boolean {
+    return !!this.getUser();  // Verifica si el usuario está logeado
+  }
+
   logout() {
     this.user = null;
-    localStorage.removeItem('users');
+    localStorage.removeItem('user');
+    this.router.navigate(['/login']);  // Redirige al login tras cerrar sesión
   }
 
   getCursos(): Observable<any> {
