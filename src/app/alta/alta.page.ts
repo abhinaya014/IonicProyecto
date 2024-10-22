@@ -65,10 +65,13 @@ export class AltaPage implements OnInit {
           });
           await alert.present();
         },
-        async (error: { status: number; }) => {
+        async (error: any) => {
+          console.error('Error al asignar:', error);
           let message = 'Ocurrió un error al asignar el alumno';
           if (error.status === 400) {
             message = 'El alumno ya está asignado a este curso';
+          } else if (error.status === 500) {
+            message = 'Error interno del servidor';
           }
           const alert = await this.alertController.create({
             header: 'Error',
@@ -82,6 +85,7 @@ export class AltaPage implements OnInit {
       this.presentAlert('Error', 'Debes seleccionar un alumno y un curso.');
     }
   }
+  
   
   async presentAlert(header: string, message: string) {
     const alert = await this.alertController.create({
