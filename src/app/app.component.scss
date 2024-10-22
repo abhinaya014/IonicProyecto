@@ -1,34 +1,84 @@
-ion-content {
-  --background: #f8f9fa;
+ion-menu {
+  --background: #2e2e48; // Fondo del menú
+  color: #fff; // Color del texto por defecto
+
+  ion-header {
+    ion-toolbar {
+      --background: #1e1e2f; // Fondo del encabezado del menú
+      ion-title {
+        color: #fff;
+        font-size: 1.4em;
+        font-weight: bold;
+      }
+    }
+  }
+
+  ion-content {
+    background-color: #2e2e48;
+
+    ion-list {
+      ion-list-header {
+        color: #fff;
+        font-size: 1.2em;
+        padding: 10px;
+        text-transform: uppercase;
+        font-weight: bold;
+      }
+
+      ion-item {
+        --background: #1e1e2f;
+        color: #fff;
+        border-radius: 10px;
+        margin: 8px 0;
+        transition: background-color 0.3s ease;
+
+        ion-icon {
+          color: #ffcc00;
+          font-size: 1.5em;
+        }
+
+        ion-label {
+          color: #fff;
+          font-size: 1.1em;
+          font-weight: 500;
+        }
+
+        &:hover {
+          background-color: #3e3e5e;
+          transform: scale(1.02);
+        }
+
+        &.selected {
+          background-color: #ffcc00;
+          ion-label {
+            color: #1e1e2f;
+          }
+          ion-icon {
+            color: #1e1e2f;
+          }
+        }
+      }
+    }
+  }
 }
 
-.curso-card {
-  background-color: white; 
-  border-radius: 10px; 
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); 
-  margin-bottom: 16px;
-  transition: transform 0.2s; 
-}
-
-.curso-card:hover {
-  transform: translateY(-5px);
-}
-
-ion-card-title {
-  font-size: 1.5em; 
-  font-weight: bold; 
-  color: #333; 
-}
-
-ion-card-subtitle {
-  font-size: 0.9em; 
-  color: gray;
-}
-
-.curso-button {
-  background-color: #3880ff;
-  color: white; 
-  
-  margin-top: 10px; 
-  
+ion-item[routerLink="/profile"] {
+  --background: #1e1e2f;
+  margin-top: 20px;
+  ion-icon {
+    color: #fff;
+    font-size: 1.4em;
+  }
+  ion-label {
+    color: #fff;
+    font-size: 1.1em;
+    font-weight: 500;
+  }
+  &:hover {
+    background-color: #ffcc00;
+    ion-label,
+    ion-icon {
+      color: #1e1e2f;
+    }
+  }
 }
