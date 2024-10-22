@@ -1,5 +1,7 @@
 {
   "name": "AbhinayaIndividual",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
