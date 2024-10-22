@@ -15,24 +15,29 @@ export class AltaPage implements OnInit {
   cursos: any[] = [];
   filteredAlumnos: any[] = []; 
 
-  selectedAlumno: number | null = null;
-  selectedCurso: number | null = null;
+  alumnoSeleccionado: number | null = null;
+  cursoSeleccionado: number | null = null;
 
-  constructor(private authService: AuthService,    private alertController: AlertController 
-  ) {}
+  constructor(private authService: AuthService, private alertController: AlertController) {}
+
 
 
   ngOnInit() {
-    // Cargar los alumnos y los cursos
-    this.authService.getAlumnos().subscribe((alumnos: any[]) => {
-      this.alumnos = alumnos;
+    this.loadAlumnos();
+    this.loadCursos();
+  }
+
+  loadAlumnos() {
+    this.authService.getAlumnos().subscribe((data: any[]) => {
+      this.alumnos = data;
       this.filteredAlumnos = [...this.alumnos]; // Mostrar todos los alumnos al inicio
 
-
     });
+  }
 
-    this.authService.getCursos().subscribe((cursos: any[]) => {
-      this.cursos = cursos;
+  loadCursos() {
+    this.authService.getCursos().subscribe((data: any[]) => {
+      this.cursos = data;
     });
   }
 
@@ -47,16 +52,28 @@ export class AltaPage implements OnInit {
     }
   }
 
-  asignarAlumnoCurso() {
-    if (this.selectedAlumno && this.selectedCurso) {
-      this.authService.asignarAlumnoACurso(this.selectedAlumno, this.selectedCurso).subscribe(
+  async asignarAlumno() {
+    if (this.alumnoSeleccionado && this.cursoSeleccionado) {
+      this.authService.asignarAlumnoACurso(this.alumnoSeleccionado, this.cursoSeleccionado).subscribe(
         async (response: any) => {
-          // Mostrar alerta de éxito
-          await this.presentAlert('Éxito', 'El alumno ha sido asignado correctamente al curso.');
+          const alert = await this.alertController.create({
+            header: 'Éxito',
+            message: 'Alumno asignado correctamente al curso',
+            buttons: ['OK']
+          });
+          await alert.present();
         },
-        async (error: any) => {
-          // Mostrar alerta de error
-          await this.presentAlert('Error', 'Hubo un problema al asignar el alumno al curso. Inténtalo de nuevo.');
+        async (error: { status: number; }) => {
+          let message = 'Ocurrió un error al asignar el alumno';
+          if (error.status === 400) {
+            message = 'El alumno ya está asignado a este curso';
+          }
+          const alert = await this.alertController.create({
+            header: 'Error',
+            message: message,
+            buttons: ['OK']
+          });
+          await alert.present();
         }
       );
     } else {
