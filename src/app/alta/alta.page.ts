@@ -52,7 +52,7 @@ export class AltaPage implements OnInit {
     }
   }
 
-  async asignarAlumno() {
+  async asignarAlumnoACurso() {
     if (this.selectedAlumno && this.selectedCurso) {
       this.authService.asignarAlumnoACurso(this.selectedAlumno, this.selectedCurso).subscribe(
         async (response: any) => {
