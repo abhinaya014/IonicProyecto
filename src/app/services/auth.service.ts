@@ -30,11 +30,10 @@ export class AuthService {
 
   // Obtener el usuario logueado desde LocalStorage
   getUser() {
-    if (!this.user) {
-      this.user = JSON.parse(localStorage.getItem('user') || 'null');
-    }
-    return this.user;
+    const user = localStorage.getItem('user');
+    return user ? JSON.parse(user) : null;
   }
+  
 
   // Obtener el rol del usuario logueado
   getRole(): string {
