@@ -76,6 +76,12 @@ export class AuthService {
     const userId = this.getUser().id; // Obtener el ID del alumno
     return this.http.get<any>(`${this.apiUrl}/alumnocurso/${cursoId}/notas/${userId}`);
   }
+
+  updateProfileImage(imageUrl: string): Observable<any> {
+    const user = this.getUser();
+    return this.http.post<any>(`${this.apiUrl}/update-profile-image`, { id: user.id, image: imageUrl });
+  }
+  
   
 
 
