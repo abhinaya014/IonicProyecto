@@ -15,8 +15,8 @@ export class AltaPage implements OnInit {
   cursos: any[] = [];
   filteredAlumnos: any[] = []; 
 
-  alumnoSeleccionado: number | null = null;
-  cursoSeleccionado: number | null = null;
+  selectedAlumno: number | null = null;
+  selectedCurso: number | null = null;
 
   constructor(private authService: AuthService, private alertController: AlertController) {}
 
@@ -53,8 +53,8 @@ export class AltaPage implements OnInit {
   }
 
   async asignarAlumno() {
-    if (this.alumnoSeleccionado && this.cursoSeleccionado) {
-      this.authService.asignarAlumnoACurso(this.alumnoSeleccionado, this.cursoSeleccionado).subscribe(
+    if (this.selectedAlumno && this.selectedCurso) {
+      this.authService.asignarAlumnoACurso(this.selectedAlumno, this.selectedCurso).subscribe(
         async (response: any) => {
           const alert = await this.alertController.create({
             header: 'Éxito',
