@@ -1,13 +1,23 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>profile</ion-title>
+    <ion-title>Perfil</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">profile</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <div class="profile-container ion-padding">
+    <ion-avatar class="profile-avatar">
+      <img src="assets/img/avatar-placeholder.png" alt="Perfil">
+    </ion-avatar>
+
+    <ion-item>
+      <ion-label>
+        <h2>{{ user.nombre }}</h2>
+        <p>{{ user.email }}</p>
+        <p>{{ user.rol }}</p>
+      </ion-label>
+    </ion-item>
+
+    <ion-button expand="full" (click)="logout()">Cerrar Sesión</ion-button>
+  </div>
 </ion-content>

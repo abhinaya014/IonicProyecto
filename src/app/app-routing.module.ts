@@ -38,10 +38,11 @@ const routes: Routes = [
   redirectTo: '/login',
   pathMatch: 'full'
 },
-  {
-    path: 'profile',
-    loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
-  }
+{
+  path: 'profile',
+  loadChildren: () => import('./profile/profile.module').then(m => m.ProfilePageModule),
+  canActivate: [AuthGuard], // Asegúrate de que solo los usuarios logueados accedan al perfil
+},
 ];
 
 @NgModule({
