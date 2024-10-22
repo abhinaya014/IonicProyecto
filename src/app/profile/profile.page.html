@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar style="--background: #4A90E2;">
-    <ion-title style="color: white; font-weight: bold;">Perfil</ion-title>
+    <ion-title style="color: white; font-weight: bold;">Mi Perfil</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -12,11 +12,28 @@
 
     <ion-card-content>
       <ion-label style="display: block; margin-top: 16px;">
-        <h2 style="font-size: 1.4em; font-weight: bold; color: #333;">{{ user.nombre }}</h2>
-        <p style="font-size: 1.1em; color: #666;">{{ user.email }}</p>
-        <p style="font-size: 1em; color: #999;">Rol: {{ user.rol }}</p>
+        <h2 style="font-size: 1.5em; font-weight: bold; color: #333;">{{ user.nombre || 'Nombre no disponible' }}</h2>
+        <p style="font-size: 1.1em; color: #666;">{{ user.email || 'Email no disponible' }}</p>
+        <p style="font-size: 1em; color: #999;">Rol: {{ user.rol || 'Rol no disponible' }}</p>
       </ion-label>
     </ion-card-content>
+  </ion-card>
+
+  <ion-card style="--background: #ffffff; border-radius: 12px; padding: 10px;">
+    <ion-list>
+      <ion-item>
+        <ion-icon name="mail-outline" slot="start"></ion-icon>
+        <ion-label>Email: {{ user.email || 'No disponible' }}</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-icon name="person-circle-outline" slot="start"></ion-icon>
+        <ion-label>Nombre: {{ user.nombre || 'No disponible' }}</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-icon name="shield-checkmark-outline" slot="start"></ion-icon>
+        <ion-label>Rol: {{ user.rol || 'No disponible' }}</ion-label>
+      </ion-item>
+    </ion-list>
   </ion-card>
 
   <!-- Botón de Cerrar Sesión -->
