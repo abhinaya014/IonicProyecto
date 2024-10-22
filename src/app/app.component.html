@@ -2,26 +2,46 @@
   <ion-split-pane contentId="main-content">
     <ion-menu contentId="main-content" type="overlay">
       <ion-header>
-        <ion-toolbar>
-          <ion-title>Perfil</ion-title>
+        <ion-toolbar style="background-color: #4A90E2;">
+          <ion-title style="color: #fff;">Menú</ion-title>
         </ion-toolbar>
       </ion-header>
 
       <ion-content>
-
         <ion-list id="inbox-list">
-          <ion-list-header>Menu</ion-list-header>
+          <ion-list-header style="color: #4A90E2; font-size: 1.2em; padding: 10px;">
+            Opciones
+          </ion-list-header>
+
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
-            <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
-              <ion-icon aria-hidden="true" slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
+            <ion-item
+              routerDirection="root"
+              [routerLink]="[p.url]"
+              lines="full"
+              detail="false"
+              routerLinkActive="selected"
+              style="--background: #fff; --color-selected: #4A90E2;"
+            >
+              <ion-icon
+                aria-hidden="true"
+                slot="start"
+                [ios]="p.icon + '-outline'"
+                [md]="p.icon + '-sharp'"
+                style="color: #4A90E2;"
+              ></ion-icon>
               <ion-label>{{ p.title }}</ion-label>
             </ion-item>
           </ion-menu-toggle>
         </ion-list>
 
-        <!-- Icono de configuración -->
-        <ion-item routerDirection="root" routerLink="/profile" lines="none">
-          <ion-icon name="settings-outline" slot="start"></ion-icon>
+        <!-- Botón de Configuración -->
+        <ion-item
+          routerDirection="root"
+          routerLink="/profile"
+          lines="full"
+          style="margin-top: 20px; --background: #fff;"
+        >
+          <ion-icon name="settings-outline" slot="start" style="color: #4A90E2;"></ion-icon>
           <ion-label>Configuración</ion-label>
         </ion-item>
 

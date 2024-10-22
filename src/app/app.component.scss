@@ -1,84 +1,39 @@
 ion-menu {
-  --background: #2e2e48; // Fondo del menú
-  color: #fff; // Color del texto por defecto
+  --background: #f8f9fa; // Fondo claro para el menú
 
   ion-header {
     ion-toolbar {
-      --background: #1e1e2f; // Fondo del encabezado del menú
+      --background: #4A90E2; // Color azul suave para el encabezado
       ion-title {
-        color: #fff;
-        font-size: 1.4em;
+        color: white;
+        font-size: 1.5em;
         font-weight: bold;
       }
     }
   }
 
   ion-content {
-    background-color: #2e2e48;
-
     ion-list {
-      ion-list-header {
-        color: #fff;
-        font-size: 1.2em;
-        padding: 10px;
-        text-transform: uppercase;
-        font-weight: bold;
-      }
-
       ion-item {
-        --background: #1e1e2f;
-        color: #fff;
-        border-radius: 10px;
+        --color: #4A90E2; // Color del texto de los ítems
+        --background: white; // Fondo blanco para los ítems
+        border-radius: 8px;
         margin: 8px 0;
-        transition: background-color 0.3s ease;
 
         ion-icon {
-          color: #ffcc00;
-          font-size: 1.5em;
+          color: #4A90E2; // Íconos en color azul suave
+          font-size: 1.4em;
         }
 
         ion-label {
-          color: #fff;
           font-size: 1.1em;
           font-weight: 500;
         }
 
-        &:hover {
-          background-color: #3e3e5e;
-          transform: scale(1.02);
-        }
-
         &.selected {
-          background-color: #ffcc00;
-          ion-label {
-            color: #1e1e2f;
-          }
-          ion-icon {
-            color: #1e1e2f;
-          }
+          background-color: #e3f2fd; // Fondo azul suave al estar seleccionado
         }
       }
-    }
-  }
-}
-
-ion-item[routerLink="/profile"] {
-  --background: #1e1e2f;
-  margin-top: 20px;
-  ion-icon {
-    color: #fff;
-    font-size: 1.4em;
-  }
-  ion-label {
-    color: #fff;
-    font-size: 1.1em;
-    font-weight: 500;
-  }
-  &:hover {
-    background-color: #ffcc00;
-    ion-label,
-    ion-icon {
-      color: #1e1e2f;
     }
   }
 }
