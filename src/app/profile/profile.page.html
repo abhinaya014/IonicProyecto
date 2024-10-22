@@ -1,21 +1,26 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>Perfil</ion-title>
+  <ion-toolbar style="--background: #4A90E2;">
+    <ion-title style="color: white; font-weight: bold;">Perfil</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-item lines="none">
-    <ion-avatar (click)="takePicture()">
-      <img [src]="imageUrl || 'assets/img/avatar-placeholder.png'" alt="Perfil">
+<ion-content style="--background: #f0f4f7; padding: 16px;">
+  <ion-card style="text-align: center; padding-top: 20px; border-radius: 16px; --background: white;">
+    <ion-avatar (click)="takePicture()" style="width: 120px; height: 120px; margin: 0 auto; cursor: pointer;">
+      <img [src]="imageUrl || 'assets/img/avatar-placeholder.png'" alt="Perfil" style="border-radius: 50%; width: 100%; height: 100%;">
     </ion-avatar>
-    <ion-label>
-      <h2>{{ user.nombre }}</h2>
-      <p>{{ user.email }}</p>
-      <p>{{ user.rol }}</p>
-    </ion-label>
-  </ion-item>
+
+    <ion-card-content>
+      <ion-label style="display: block; margin-top: 16px;">
+        <h2 style="font-size: 1.4em; font-weight: bold; color: #333;">{{ user.nombre }}</h2>
+        <p style="font-size: 1.1em; color: #666;">{{ user.email }}</p>
+        <p style="font-size: 1em; color: #999;">Rol: {{ user.rol }}</p>
+      </ion-label>
+    </ion-card-content>
+  </ion-card>
 
   <!-- Botón de Cerrar Sesión -->
-  <ion-button expand="full" color="danger" (click)="logout()">Cerrar Sesión</ion-button>
+  <ion-button expand="full" color="danger" (click)="logout()" style="margin-top: 20px; font-weight: bold; --border-radius: 12px;">
+    Cerrar Sesión
+  </ion-button>
 </ion-content>
