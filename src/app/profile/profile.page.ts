@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { Filesystem, Directory } from '@capacitor/filesystem';
-import { Preferences } from '@capacitor/preferences';
 import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -18,7 +18,7 @@ export class ProfilePage implements OnInit {
   };
   imageUrl: string | null = null;
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
     this.loadUserData();
@@ -28,11 +28,10 @@ export class ProfilePage implements OnInit {
     const userData = this.authService.getUser();
     if (userData) {
       this.user = userData;
-      this.imageUrl = this.user.image; // Cargar la URL de la imagen si existe
+      this.imageUrl = this.user.image;
     }
   }
 
-  // Tomar foto con la cámara
   async takePicture() {
     const image = await Camera.getPhoto({
       quality: 90,
@@ -46,7 +45,6 @@ export class ProfilePage implements OnInit {
     }
   }
 
-  // Guardar la imagen en el sistema de archivos y actualizar el perfil
   async saveImage(photo: any) {
     const base64Data = await this.readAsBase64(photo);
 
@@ -59,13 +57,14 @@ export class ProfilePage implements OnInit {
 
     this.imageUrl = photo.webPath;
 
-    // Aquí puedes llamar a un servicio de tu backend para guardar la imagen en la base de datos
-    this.authService.updateProfileImage(this.imageUrl).subscribe(() => {
-      console.log('Imagen actualizada correctamente');
-    });
+    // Solo actualiza si la imagen no es null
+    if (this.imageUrl) {
+      this.authService.updateProfileImage(this.imageUrl).subscribe(() => {
+        console.log('Imagen actualizada correctamente');
+      });
+    }
   }
 
-  // Convertir la imagen en Base64
   private async readAsBase64(photo: any) {
     const response = await fetch(photo.webPath);
     const blob = await response.blob();
@@ -81,5 +80,10 @@ export class ProfilePage implements OnInit {
       };
       reader.readAsDataURL(blob);
     });
+  }
+
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 }
