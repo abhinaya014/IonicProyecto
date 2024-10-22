@@ -43,4 +43,13 @@ export class InicioPage implements OnInit {
 
     }
   }
+    onCursoClick(curso: any) {
+      if (this.user.rol === 'alumno') {
+        // Redirigir a la página de alumno con el ID del curso
+        this.router.navigate(['/alumno', curso.id]);
+      } else if (this.user.rol === 'administrador') {
+        // Redirigir a la página de admin con el ID del curso
+        this.router.navigate(['/admin', curso.id]);
+      }
+    }
 }
