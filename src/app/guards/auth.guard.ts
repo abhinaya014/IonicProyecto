@@ -8,11 +8,20 @@ import { AuthService } from '../services/auth.service';
 export class AuthGuard implements CanActivate {
   constructor(private authService: AuthService, private router: Router) {}
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    if (this.authService.isLoggedIn()) {
-      return true;
+  canActivate(route: ActivatedRouteSnapshot): boolean {
+    const expectedRoles = route.data['role'];
+    const userRole = this.authService.getRole();  
+
+    if (!this.authService.isLoggedIn()) {
+      this.router.navigate(['/login']);
+      return false;
     }
-    this.router.navigate(['/login']);
-    return false;
+
+    if (expectedRoles && !expectedRoles.includes(userRole)) {
+      this.router.navigate(['/inicio']);
+      return false;
+    }
+
+    return true;
   }
 }
