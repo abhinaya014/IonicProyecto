@@ -51,9 +51,11 @@ export class AltaPage implements OnInit {
       this.filteredAlumnos = this.alumnos;  // Mostrar todos si no hay búsqueda
     }
   }
-
   async asignarAlumno() {
     if (this.selectedAlumno && this.selectedCurso) {
+      console.log('Alumno seleccionado:', this.selectedAlumno);
+      console.log('Curso seleccionado:', this.selectedCurso);
+  
       this.authService.asignarAlumnoACurso(this.selectedAlumno, this.selectedCurso).subscribe(
         async (response: any) => {
           const alert = await this.alertController.create({
@@ -77,10 +79,10 @@ export class AltaPage implements OnInit {
         }
       );
     } else {
-      // Si no se seleccionó ningún alumno o curso, mostrar una alerta
       this.presentAlert('Error', 'Debes seleccionar un alumno y un curso.');
     }
   }
+  
   async presentAlert(header: string, message: string) {
     const alert = await this.alertController.create({
       header: header,
