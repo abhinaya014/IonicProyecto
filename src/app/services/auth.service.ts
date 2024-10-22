@@ -72,6 +72,11 @@ export class AuthService {
   getCursosPorAlumno(alumnoId: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/usuario/${alumnoId}/cursos`);
   }
+  getNotasPorCurso(cursoId: number): Observable<any> {
+    const userId = this.getUser().id; // Obtener el ID del alumno
+    return this.http.get<any>(`${this.apiUrl}/alumnocurso/${cursoId}/notas/${userId}`);
+  }
+  
 
 
 }
