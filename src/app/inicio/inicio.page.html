@@ -6,7 +6,7 @@
 
 <ion-content [fullscreen]="true" class="ion-padding">
   <ion-list>
-    <ion-item *ngFor="let curso of cursos" (click)="onCursoClick(curso)">
+    <ion-item *ngFor="let curso of cursos">
       <ion-card class="curso-card">
         <ion-card-header>
           <ion-card-title>{{ curso.nombre }}</ion-card-title>

@@ -11,31 +11,36 @@ import { Router } from '@angular/router';
 export class InicioPage implements OnInit {
   
   cursos: any[] = [];
-  userRole: string = '';
+  user: any;
+
+
 
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
-    // Obtener los cursos cuando se carga la página
-    this.authService.getCursos().subscribe(
-      (data: any) => {
-        this.cursos = data;
-      },
-      (error: any) => {
-        console.error('Error al cargar los cursos', error);
-      }
-    );
+    this.user = this.authService.getUser();
 
-    // Obtener el rol del usuario almacenado
-    this.userRole = this.authService.getRole();
-  }
+    // Si el usuario es alumno, obtenemos solo los cursos asignados a él
+    if (this.user.rol === 'alumno') {
+      this.authService.getCursosPorAlumno(this.user.id).subscribe(
+        (data: any[]) => {
+          this.cursos = data;
+        },
+        (error: any) => {
+          console.error('Error al obtener cursos del alumno', error);
+        }
+      );
+    } else if (this.user.rol === 'administrador') {
+      // Si es administrador, mostramos todos los cursos
+      this.authService.getCursos().subscribe(
+        (data: any[]) => {
+          this.cursos = data;
+        },
+        (error: any) => {
+          console.error('Error al obtener todos los cursos', error);
+        }
+      );
 
-  onCursoClick(curso: any) {
-    // Redirigir según el rol del usuario
-    if (this.userRole === 'administrador') {
-      this.router.navigate(['/admin', curso.id]);  // Navegar a la página de admin con el ID del curso
-    } else if (this.userRole === 'alumno') {
-      this.router.navigate(['/alumno', curso.id]);  // Navegar a la página de alumno con el ID del curso
     }
   }
 }
