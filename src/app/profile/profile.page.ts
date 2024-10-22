@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
-import { Filesystem, Directory } from '@capacitor/filesystem';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 
@@ -24,11 +23,12 @@ export class ProfilePage implements OnInit {
     this.loadUserData();
   }
 
-  async loadUserData() {
+  loadUserData() {
+    // Cargar los datos del usuario y la imagen desde la base de datos
     const userData = this.authService.getUser();
     if (userData) {
       this.user = userData;
-      this.imageUrl = this.user.image;
+      this.imageUrl = this.user.image ? `http://kerakha.duckdns.org:8000/images/${this.user.image}` : null;
     }
   }
 
@@ -36,49 +36,20 @@ export class ProfilePage implements OnInit {
     const image = await Camera.getPhoto({
       quality: 90,
       allowEditing: false,
-      resultType: CameraResultType.Uri,
+      resultType: CameraResultType.DataUrl, // DataUrl para enviar la imagen al servidor como base64
       source: CameraSource.Camera
     });
 
     if (image) {
-      this.saveImage(image);
+      this.imageUrl = image.dataUrl; // Mostrar la imagen inmediatamente en el perfil
+      this.saveImage(image.dataUrl);  // Guardar la imagen en la base de datos
     }
   }
 
-  async saveImage(photo: any) {
-    const base64Data = await this.readAsBase64(photo);
-
-    const fileName = new Date().getTime() + '.jpeg';
-    await Filesystem.writeFile({
-      path: fileName,
-      data: base64Data,
-      directory: Directory.Data
-    });
-
-    this.imageUrl = photo.webPath;
-
-    // Solo actualiza si la imagen no es null
-    if (this.imageUrl) {
-      this.authService.updateProfileImage(this.imageUrl).subscribe(() => {
-        console.log('Imagen actualizada correctamente');
-      });
-    }
-  }
-
-  private async readAsBase64(photo: any) {
-    const response = await fetch(photo.webPath);
-    const blob = await response.blob();
-    return await this.convertBlobToBase64(blob) as string;
-  }
-
-  private convertBlobToBase64(blob: Blob) {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onerror = reject;
-      reader.onload = () => {
-        resolve(reader.result);
-      };
-      reader.readAsDataURL(blob);
+  saveImage(base64Image: string) {
+    // Aquí enviamos la imagen al servidor
+    this.authService.updateProfileImage(base64Image).subscribe(() => {
+      console.log('Imagen subida correctamente');
     });
   }
 

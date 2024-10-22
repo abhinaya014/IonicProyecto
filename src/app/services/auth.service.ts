@@ -77,9 +77,9 @@ export class AuthService {
     return this.http.get<any>(`${this.apiUrl}/alumnocurso/${cursoId}/notas/${userId}`);
   }
 
-  updateProfileImage(imageUrl: string): Observable<any> {
-    const user = this.getUser();
-    return this.http.post<any>(`${this.apiUrl}/update-profile-image`, { id: user.id, image: imageUrl });
+  updateProfileImage(base64Image: string): Observable<any> {
+    const userId = this.getUser().id;  // Obtener el ID del usuario logueado
+    return this.http.post<any>(`${this.apiUrl}/user/${userId}/update-image`, { image: base64Image });
   }
   
   

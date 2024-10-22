@@ -4,29 +4,18 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
-  <div class="profile-container">
-    <ion-avatar class="profile-avatar" (click)="takePicture()">
-      <img [src]="imageUrl || 'assets/img/avatar-placeholder.png'" alt="Perfil" />
+<ion-content>
+  <ion-item lines="none">
+    <ion-avatar (click)="takePicture()">
+      <img [src]="imageUrl || 'assets/img/avatar-placeholder.png'" alt="Perfil">
     </ion-avatar>
+    <ion-label>
+      <h2>{{ user.nombre }}</h2>
+      <p>{{ user.email }}</p>
+      <p>{{ user.rol }}</p>
+    </ion-label>
+  </ion-item>
 
-    <ion-list>
-      <ion-item>
-        <ion-label position="stacked">Nombre</ion-label>
-        <ion-input [(ngModel)]="user.nombre" readonly></ion-input>
-      </ion-item>
-
-      <ion-item>
-        <ion-label position="stacked">Email</ion-label>
-        <ion-input [(ngModel)]="user.email" readonly></ion-input>
-      </ion-item>
-
-      <ion-item>
-        <ion-label position="stacked">Rol</ion-label>
-        <ion-input [(ngModel)]="user.rol" readonly></ion-input>
-      </ion-item>
-    </ion-list>
-  </div>
-
+  <!-- Botón de Cerrar Sesión -->
   <ion-button expand="full" color="danger" (click)="logout()">Cerrar Sesión</ion-button>
 </ion-content>
