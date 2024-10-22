@@ -53,9 +53,6 @@ export class AltaPage implements OnInit {
   }
   async asignarAlumno() {
     if (this.selectedAlumno && this.selectedCurso) {
-      console.log('Alumno seleccionado:', this.selectedAlumno);
-      console.log('Curso seleccionado:', this.selectedCurso);
-  
       this.authService.asignarAlumnoACurso(this.selectedAlumno, this.selectedCurso).subscribe(
         async (response: any) => {
           const alert = await this.alertController.create({
@@ -65,13 +62,10 @@ export class AltaPage implements OnInit {
           });
           await alert.present();
         },
-        async (error: any) => {
-          console.error('Error al asignar:', error);
+        async (error: { status: number; }) => {
           let message = 'Ocurrió un error al asignar el alumno';
           if (error.status === 400) {
-            message = 'El alumno ya está asignado a este curso';
-          } else if (error.status === 500) {
-            message = 'Error interno del servidor';
+            message = 'El alumno ya está asignado a este curso';  // Mensaje claro cuando ya esté asignado
           }
           const alert = await this.alertController.create({
             header: 'Error',
@@ -82,9 +76,11 @@ export class AltaPage implements OnInit {
         }
       );
     } else {
+      // Si no se seleccionó ningún alumno o curso, mostrar una alerta
       this.presentAlert('Error', 'Debes seleccionar un alumno y un curso.');
     }
   }
+  
   
   
   async presentAlert(header: string, message: string) {
