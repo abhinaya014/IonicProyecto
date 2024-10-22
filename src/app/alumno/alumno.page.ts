@@ -9,7 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class AlumnoPage implements OnInit {
   asignaturas: any[] = [];
-  cursoId: number;
+  cursoId: number = 0;
 
   constructor( private authService: AuthService,
     private route: ActivatedRoute) { }
