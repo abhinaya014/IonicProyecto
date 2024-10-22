@@ -9,28 +9,32 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class AlumnoPage implements OnInit {
   asignaturas: any[] = [];
-  cursoId: number = 0;
+  cursoId: number | null = null;
 
   constructor( private authService: AuthService,
     private route: ActivatedRoute) { }
-
     ngOnInit() {
-      // Obtenemos el ID del curso desde la URL
-      this.cursoId = +this.route.snapshot.paramMap.get('id');
-  
-      // Cargar las notas del alumno para el curso seleccionado
-      this.loadNotasAlumno();
+      // Verificar si el parámetro 'id' está presente
+      const idParam = this.route.snapshot.paramMap.get('id');
+      if (idParam) {
+        this.cursoId = +idParam; // Convertir el ID a número
+        this.loadNotasAlumno();
+      } else {
+        console.error('No se encontró el ID del curso en la URL');
+      }
     }
   
     loadNotasAlumno() {
-      this.authService.getNotasPorCurso(this.cursoId).subscribe(
-        (data: any[]) => {
-          this.asignaturas = data;
-        },
-        (error: any) => {
-          console.error('Error al cargar las notas del curso', error);
-        }
-      );
-  }
+      if (this.cursoId) {
+        this.authService.getNotasPorCurso(this.cursoId).subscribe(
+          (data: any[]) => {
+            this.asignaturas = data;
+          },
+          (error: any) => {
+            console.error('Error al cargar las notas del curso', error);
+          }
+        );
+      }
+    }
 
 }
